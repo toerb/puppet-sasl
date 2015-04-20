@@ -1,0 +1,57 @@
+{
+  "name": "bodgit-sasl",
+  "version": "0.0.1",
+  "author": "bodgit",
+  "summary": "Puppet Module for managing Cyrus SASL",
+  "license": "Apache-2.0",
+  "source": "https://github.com/bodgit/puppet-sasl",
+  "project_page": "https://github.com/bodgit/puppet-sasl",
+  "issues_url": "https://github.com/bodgit/puppet-sasl/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "tags": [
+    "cyrus",
+    "sasl",
+    "saslauthd"
+  ],
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">=4.2.0 <5.0.0"
+    }
+  ]
+}
