@@ -9,9 +9,7 @@ describe 'sasl' do
       }
     end
 
-    it do
-      expect { should compile }.to raise_error(/not supported on an Unsupported/)
-    end
+    it { expect { should compile }.to raise_error(/not supported on an Unsupported/) }
   end
 
   context 'on RedHat' do
@@ -31,16 +29,14 @@ describe 'sasl' do
           )
         end
 
-        it do
-          should contain_anchor('sasl::begin')
-          should contain_anchor('sasl::end')
-          should contain_class('sasl')
-          should contain_class('sasl::config')
-          should contain_class('sasl::install')
-          should contain_class('sasl::params')
-          should contain_file('/etc/sasl2')
-          should contain_package('cyrus-sasl-lib')
-        end
+        it { should contain_anchor('sasl::begin') }
+        it { should contain_anchor('sasl::end') }
+        it { should contain_class('sasl') }
+        it { should contain_class('sasl::config') }
+        it { should contain_class('sasl::install') }
+        it { should contain_class('sasl::params') }
+        it { should contain_file('/etc/sasl2') }
+        it { should contain_package('cyrus-sasl-lib') }
       end
     end
   end
@@ -64,16 +60,14 @@ describe 'sasl' do
           )
         end
 
-        it do
-          should contain_anchor('sasl::begin')
-          should contain_anchor('sasl::end')
-          should contain_class('sasl')
-          should contain_class('sasl::config')
-          should contain_class('sasl::install')
-          should contain_class('sasl::params')
-          should contain_file('/usr/lib/sasl2')
-          should contain_package('libsasl2-2')
-        end
+        it { should contain_anchor('sasl::begin') }
+        it { should contain_anchor('sasl::end') }
+        it { should contain_class('sasl') }
+        it { should contain_class('sasl::config') }
+        it { should contain_class('sasl::install') }
+        it { should contain_class('sasl::params') }
+        it { should contain_file('/usr/lib/sasl2') }
+        it { should contain_package('libsasl2-2') }
       end
     end
   end
@@ -97,16 +91,14 @@ describe 'sasl' do
           )
         end
 
-        it do
-          should contain_anchor('sasl::begin')
-          should contain_anchor('sasl::end')
-          should contain_class('sasl')
-          should contain_class('sasl::config')
-          should contain_class('sasl::install')
-          should contain_class('sasl::params')
-          should contain_file('/usr/lib/sasl2')
-          should contain_package('libsasl2-2')
-        end
+        it { should contain_anchor('sasl::begin') }
+        it { should contain_anchor('sasl::end') }
+        it { should contain_class('sasl') }
+        it { should contain_class('sasl::config') }
+        it { should contain_class('sasl::install') }
+        it { should contain_class('sasl::params') }
+        it { should contain_file('/usr/lib/sasl2') }
+        it { should contain_package('libsasl2-2') }
       end
     end
   end
