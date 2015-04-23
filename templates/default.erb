@@ -1,0 +1,9 @@
+# !!! Managed by Puppet !!!
+
+START=yes
+DESC="SASL Authentication Daemon"
+NAME="saslauthd"
+MECHANISMS="<%= @mechanism %>"
+MECH_OPTIONS="<%= @mech_options %>"
+THREADS=5
+OPTIONS="-c -m <%= @socket %>"

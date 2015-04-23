@@ -1,6 +1,9 @@
 #
 class sasl::params {
 
+  $saslauthd_service        = 'saslauthd'
+  $saslauthd_ldap_conf_file = '/etc/saslauthd.conf'
+
   case $::osfamily {
     'RedHat': {
       $package_name          = 'cyrus-sasl-lib'
@@ -20,6 +23,15 @@ class sasl::params {
         'plain'      => 'cyrus-sasl-plain',
       }
       $saslauthd_package     = 'cyrus-sasl'
+      $saslauthd_socket      = $::operatingsystemmajrelease ? {
+        6       => '/var/run/saslauthd',
+        default => '/run/saslauthd',
+      }
+      $saslauthd_mechanisms  = $::operatingsystemmajrelease ? {
+        6       => '^(?:getpwent|kerberos5|ldap|pam|rimap|shadow)$',
+        default => '^(?:getpwent|httpform|kerberos5|ldap|pam|rimap|shadow)$',
+      }
+      $saslauthd_hasstatus   = true
     }
     'Debian': {
       $package_name          = 'libsasl2-2'
@@ -42,6 +54,12 @@ class sasl::params {
         'plain'      => 'libsasl2-modules',
       }
       $saslauthd_package     = 'sasl2-bin'
+      $saslauthd_socket      = '/var/run/saslauthd'
+      $saslauthd_mechanisms  = '^(?:getpwent|kerberos5|ldap|pam|rimap|sasldb|shadow)$' # lint:ignore:80chars
+      $saslauthd_hasstatus   = $::lsbdistcodename ? {
+        'squeeze' => false,
+        default   => true,
+      }
     }
     default: {
       fail("The ${module_name} module is not supported on an ${::osfamily} based system.") # lint:ignore:80chars
