@@ -1,5 +1,14 @@
 require 'spec_helper'
 
+shared_examples_for 'sasl' do
+  it { should contain_anchor('sasl::begin') }
+  it { should contain_anchor('sasl::end') }
+  it { should contain_class('sasl') }
+  it { should contain_class('sasl::config') }
+  it { should contain_class('sasl::install') }
+  it { should contain_class('sasl::params') }
+end
+
 describe 'sasl' do
 
   context 'on unsupported distributions' do
@@ -29,12 +38,8 @@ describe 'sasl' do
           )
         end
 
-        it { should contain_anchor('sasl::begin') }
-        it { should contain_anchor('sasl::end') }
-        it { should contain_class('sasl') }
-        it { should contain_class('sasl::config') }
-        it { should contain_class('sasl::install') }
-        it { should contain_class('sasl::params') }
+        it_behaves_like 'sasl'
+
         it { should contain_file('/etc/sasl2') }
         it { should contain_package('cyrus-sasl-lib') }
       end
@@ -60,12 +65,8 @@ describe 'sasl' do
           )
         end
 
-        it { should contain_anchor('sasl::begin') }
-        it { should contain_anchor('sasl::end') }
-        it { should contain_class('sasl') }
-        it { should contain_class('sasl::config') }
-        it { should contain_class('sasl::install') }
-        it { should contain_class('sasl::params') }
+        it_behaves_like 'sasl'
+
         it { should contain_file('/usr/lib/sasl2') }
         it { should contain_package('libsasl2-2') }
       end
@@ -91,12 +92,8 @@ describe 'sasl' do
           )
         end
 
-        it { should contain_anchor('sasl::begin') }
-        it { should contain_anchor('sasl::end') }
-        it { should contain_class('sasl') }
-        it { should contain_class('sasl::config') }
-        it { should contain_class('sasl::install') }
-        it { should contain_class('sasl::params') }
+        it_behaves_like 'sasl'
+
         it { should contain_file('/usr/lib/sasl2') }
         it { should contain_package('libsasl2-2') }
       end
