@@ -1,0 +1,58 @@
+pwcheck_method: <%= @pwcheck_method %>
+mech_list: <%= @mech_list.join(' ') %>
+<% if @pwcheck_method == 'auxprop' -%>
+auxprop_plugin: <%= @auxprop_plugin %>
+<%   case @auxprop_plugin -%>
+<%   when 'ldapdb' -%>
+<%     if @ldapdb_uri -%>
+ldapdb_uri: <%= @ldapdb_uri.join(' ') %>
+<%     end -%>
+<%     if @ldapdb_id -%>
+ldapdb_id: <%= @ldapdb_id %>
+<%     end -%>
+<%     if @ldapdb_mech -%>
+ldapdb_mech: <%= @ldapdb_mech %>
+<%     end -%>
+<%     if @ldapdb_pw -%>
+ldapdb_pw: <%= @ldapdb_pw %>
+<%     end -%>
+<%     if @ldapdb_rc -%>
+ldapdb_rc: <%= @ldapdb_rc %>
+<%     end -%>
+<%     if @ldapdb_starttls -%>
+ldapdb_starttls: <%= @ldapdb_starttls %>
+<%     end -%>
+<%   when 'sasldb' -%>
+<%     if @sasldb_path -%>
+sasldb_path: <%= @sasldb_path %>
+<%     end -%>
+<%   when 'sql' -%>
+<%     if @sql_engine -%>
+sql_engine: <%= @sql_engine %>
+<%     end -%>
+<%     if @sql_hostnames -%>
+sql_hostnames: <%= @sql_hostnames.join(', ') %>
+<%     end -%>
+<%     if @sql_user -%>
+sql_user: <%= @sql_user %>
+<%     end -%>
+<%     if @sql_passwd -%>
+sql_passwd: <%= @sql_passwd %>
+<%     end -%>
+<%     if @sql_database -%>
+sql_database: <%= @sql_database %>
+<%     end -%>
+<%     if @sql_select -%>
+sql_select: <%= @sql_select %>
+<%     end -%>
+<%     if @sql_insert -%>
+sql_insert: <%= @sql_insert %>
+<%     end -%>
+<%     if @sql_update -%>
+sql_update: <%= @sql_update %>
+<%     end -%>
+<%     if @sql_usessl -%>
+sql_usessl: <%= @sql_usessl %>
+<%     end -%>
+<%   end -%>
+<% end -%>
