@@ -55,9 +55,9 @@ include ::sasl
 
 **Parameters within `sasl`:**
 
-##### `application\_directory`
+##### `application_directory`
 
-##### `package\_name`
+##### `package_name`
 
 #### Class: `sasl::authd`
 
@@ -65,129 +65,129 @@ include ::sasl
 
 ##### `mechanism`
 
-##### `package\_name`
+##### `package_name`
 
-##### `service\_name`
+##### `service_name`
 
 ##### `socket`
 
 ##### `hasstatus`
 
-##### `ldap\_conf\_file`
+##### `ldap_conf_file`
 
-##### `ldap\_auth\_method`
+##### `ldap_auth_method`
 
-##### `ldap\_bind\_dn`
+##### `ldap_bind_dn`
 
-##### `ldap\_bind\_pw`
+##### `ldap_bind_pw`
 
-##### `ldap\_default\_domain`
+##### `ldap_default_domain`
 
-##### `ldap\_default\_realm`
+##### `ldap_default_realm`
 
-##### `ldap\_deref`
+##### `ldap_deref`
 
-##### `ldap\_filter`
+##### `ldap_filter`
 
-##### `ldap\_group\_attr`
+##### `ldap_group_attr`
 
-##### `ldap\_group\_dn`
+##### `ldap_group_dn`
 
-##### `ldap\_group\_filter`
+##### `ldap_group_filter`
 
-##### `ldap\_group\_match\_method`
+##### `ldap_group_match_method`
 
-##### `ldap\_group\_search\_base`
+##### `ldap_group_search_base`
 
-##### `ldap\_group\_scope`
+##### `ldap_group_scope`
 
-##### `ldap\_password`
+##### `ldap_password`
 
-##### `ldap\_password\_attr`
+##### `ldap_password_attr`
 
-##### `ldap\_referrals`
+##### `ldap_referrals`
 
-##### `ldap\_restart`
+##### `ldap_restart`
 
-##### `ldap\_id`
+##### `ldap_id`
 
-##### `ldap\_authz\_id`
+##### `ldap_authz_id`
 
-##### `ldap\_mech`
+##### `ldap_mech`
 
-##### `ldap\_realm`
+##### `ldap_realm`
 
-##### `ldap\_scope`
+##### `ldap_scope`
 
-##### `ldap\_search\_base`
+##### `ldap_search_base`
 
-##### `ldap\_servers`
+##### `ldap_servers`
 
-##### `ldap\_start\_tls`
+##### `ldap_start_tls`
 
-##### `ldap\_time\_limit`
+##### `ldap_time_limit`
 
-##### `ldap\_timeout`
+##### `ldap_timeout`
 
-##### `ldap\_tls\_check\_peer`
+##### `ldap_tls_check_peer`
 
-##### `ldap\_tls\_cacert\_file`
+##### `ldap_tls_cacert_file`
 
-##### `ldap\_tls\_cacert\_dir`
+##### `ldap_tls_cacert_dir`
 
-##### `ldap\_tls\_ciphers`
+##### `ldap_tls_ciphers`
 
-##### `ldap\_tls\_cert`
+##### `ldap_tls_cert`
 
-##### `ldap\_tls\_key`
+##### `ldap_tls_key`
 
-##### `ldap\_use\_sasl`
+##### `ldap_use_sasl`
 
-##### `ldap\_version`
+##### `ldap_version`
 
-##### `imap\_server`
+##### `imap_server`
 
 #### Defined Type: `sasl::application`
 
 **Parameters within `sasl::application`:**
 
-##### `pwcheck\_method`
+##### `pwcheck_method`
 
-##### `mech\_list¶`
+##### `mech_list`
 
-##### `auxprop\_plugin`
+##### `auxprop_plugin`
 
-##### `ldapdb\_uri`
+##### `ldapdb_uri`
 
-##### `ldapdb\_id`
+##### `ldapdb_id`
 
-##### `ldapdb\_mech`
+##### `ldapdb_mech`
 
-##### `ldapdb\_pw`
+##### `ldapdb_pw`
 
-##### `ldapdb\_rc`
+##### `ldapdb_rc`
 
-##### `ldapdb\_starttls`
+##### `ldapdb_starttls`
 
-##### `sasldb\_path`
+##### `sasldb_path`
 
-##### `sql\_engine`
+##### `sql_engine`
 
-##### `sql\_hostnames`
+##### `sql_hostnames`
 
-##### `sql\_user`
+##### `sql_user`
 
-##### `sql\_passwd`
+##### `sql_passwd`
 
-##### `sql\_database`
+##### `sql_database`
 
-##### `sql\_select`
+##### `sql_select`
 
-##### `sql\_insert`
+##### `sql_insert`
 
-##### `sql\_update`
+##### `sql_update`
 
-##### `sql\_usessl`
+##### `sql_usessl`
 
 ### Examples
 
