@@ -1,6 +1,6 @@
 {
   "name": "bodgit-sasl",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "bodgit",
   "summary": "Puppet Module for managing Cyrus SASL",
   "license": "Apache-2.0",
