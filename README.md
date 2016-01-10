@@ -65,6 +65,8 @@ include ::sasl
 
 ##### `mechanism`
 
+##### `threads`
+
 ##### `package_name`
 
 ##### `service_name`

@@ -5,5 +5,5 @@ DESC="SASL Authentication Daemon"
 NAME="saslauthd"
 MECHANISMS="<%= @mechanism %>"
 MECH_OPTIONS="<%= @mech_options %>"
-THREADS=5
+THREADS=<%= @threads %>
 OPTIONS="-c -m <%= @socket %>"
