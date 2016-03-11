@@ -6,3 +6,4 @@ Puppetfile.lock
 spec/fixtures
 pkg
 log
+coverage

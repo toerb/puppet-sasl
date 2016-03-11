@@ -6,49 +6,57 @@ describe 'sasl::application' do
     'test'
   end
 
-  context 'without sasl class included' do
-    let(:params) do
-      {
-        :pwcheck_method => 'auxprop',
-        :auxprop_plugin => 'sasldb',
-        :mech_list      => ['plain', 'login'],
-      }
-    end
-
-    it { expect { should compile }.to raise_error(/must include the sasl base class/) }
-  end
-
-  context 'with sasl class included' do
-    let(:pre_condition) do
-      'include ::sasl'
-    end
-
-    context 'with sasldb method' do
-      let(:params) do
-        {
-          :pwcheck_method => 'auxprop',
-          :auxprop_plugin => 'sasldb',
-          :mech_list      => ['plain', 'login'],
-        }
+  on_supported_os.each do |os, facts|
+    context "on #{os}" do
+      let(:facts) do
+        facts
       end
 
-      context 'on RedHat' do
-        let(:facts) do
+      context 'without sasl class included' do
+        let(:params) do
           {
-            :osfamily => 'RedHat'
+            :pwcheck_method => 'auxprop',
+            :auxprop_plugin => 'sasldb',
+            :mech_list      => ['plain', 'login'],
           }
         end
 
-        [6, 7].each do |version|
-          context "version #{version}", :compile do
-            let(:facts) do
-              super().merge(
-                {
-                  :operatingsystemmajrelease => version
-                }
-              )
-            end
+        it { expect { should compile }.to raise_error(/must include the sasl base class/) }
+      end
 
+      context 'with sasl class included' do
+        let(:pre_condition) do
+          'include ::sasl'
+        end
+
+        context 'with sasldb method', :compile do
+          let(:params) do
+            {
+              :pwcheck_method => 'auxprop',
+              :auxprop_plugin => 'sasldb',
+              :mech_list      => ['plain', 'login'],
+            }
+          end
+
+          case facts[:osfamily]
+          when 'Debian'
+            it do
+              should contain_file('/usr/lib/sasl2/test.conf').with_content(<<-EOS.gsub(/^ +/, ''))
+                pwcheck_method: auxprop
+                mech_list: plain login
+                auxprop_plugin: sasldb
+              EOS
+            end
+            it { should contain_package('libsasl2-modules') }
+
+            case facts[:operatingsystem]
+            when 'Ubuntu'
+              case facts[:lsbdistcodename]
+              when 'trusty'
+                it { should contain_package('libsasl2-modules-db') }
+              end
+            end
+          when 'RedHat'
             it do
               should contain_file('/etc/sasl2/test.conf').with_content(<<-EOS.gsub(/^ +/, ''))
                 pwcheck_method: auxprop
@@ -57,121 +65,38 @@ describe 'sasl::application' do
               EOS
             end
             it { should contain_package('cyrus-sasl-plain') }
-            it { should contain_sasl__application('test') }
           end
-        end
-      end
 
-      context 'on Ubuntu' do
-        let(:facts) do
-          {
-            :osfamily        => 'Debian',
-            :operatingsystem => 'Ubuntu',
-            :lsbdistid       => 'Ubuntu'
-          }
+          it { should contain_sasl__application('test') }
         end
 
-        ['precise', 'trusty'].each do |codename|
-          context "#{codename}", :compile do
-            let(:facts) do
-              super().merge(
-                {
-                  :lsbdistcodename => codename
-                }
-              )
-            end
-
-            it do
-              should contain_file('/usr/lib/sasl2/test.conf').with_content(<<-EOS.gsub(/^ +/, ''))
-                pwcheck_method: auxprop
-                mech_list: plain login
-                auxprop_plugin: sasldb
-              EOS
-            end
-            it { should contain_package('libsasl2-modules') }
-            if codename == 'trusty'
-              it { should contain_package('libsasl2-modules-db') }
-            end
-            it { should contain_sasl__application('test') }
-          end
-        end
-      end
-
-      context 'on Debian' do
-        let(:facts) do
-          {
-            :osfamily        => 'Debian',
-            :operatingsystem => 'Debian',
-            :lsbdistid       => 'Debian'
-          }
-        end
-
-        ['squeeze', 'wheezy'].each do |codename|
-          context "#{codename}", :compile do
-            let(:facts) do
-              super().merge(
-                {
-                  :lsbdistcodename => codename
-                }
-              )
-            end
-
-            it do
-              should contain_file('/usr/lib/sasl2/test.conf').with_content(<<-EOS.gsub(/^ +/, ''))
-                pwcheck_method: auxprop
-                mech_list: plain login
-                auxprop_plugin: sasldb
-              EOS
-            end
-            it { should contain_package('libsasl2-modules') }
-            it { should contain_sasl__application('test') }
-          end
-        end
-      end
-    end
-
-    context 'with saslauthd method' do
-      let(:params) do
-        {
-          :pwcheck_method => 'saslauthd',
-          :mech_list      => ['plain', 'login'],
-        }
-      end
-
-      context 'without sasl::authd class included' do
-        # Sufficient facts to get far enough to trigger the failure
-        let(:facts) do
-          {
-            :osfamily                  => 'RedHat',
-            :operatingsystemmajrelease => 7
-          }
-        end
-
-        it { expect { should compile }.to raise_error(/must include the sasl::authd class/) }
-      end
-
-      context 'with sasl::authd class included' do
-        let(:pre_condition) do
-          'include ::sasl class { "::sasl::authd": mechanism => pam }'
-        end
-
-        context 'on RedHat' do
-          let(:facts) do
+        context 'with saslauthd method' do
+          let(:params) do
             {
-              :osfamily => 'RedHat'
+              :pwcheck_method => 'saslauthd',
+              :mech_list      => ['plain', 'login'],
             }
           end
 
-          [6, 7].each do |version|
-            context "version #{version}", :compile do
-              let(:facts) do
-                super().merge(
-                  {
-                    :operatingsystemmajrelease => version
-                  }
-                )
-              end
+          context 'without sasl::authd class included' do
+            it { expect { should compile }.to raise_error(/must include the sasl::authd class/) }
+          end
 
+          context 'with sasl::authd class included', :compile do
+            let(:pre_condition) do
+              'include ::sasl class { "::sasl::authd": mechanism => pam }'
+            end
+
+            case facts[:osfamily]
+            when 'Debian'
+              it do
+                should contain_file('/usr/lib/sasl2/test.conf').with_content(<<-EOS.gsub(/^ +/, ''))
+                  pwcheck_method: saslauthd
+                  mech_list: plain login
+                EOS
+              end
+              it { should contain_package('libsasl2-modules') }
+            when 'RedHat'
               it do
                 should contain_file('/etc/sasl2/test.conf').with_content(<<-EOS.gsub(/^ +/, ''))
                   pwcheck_method: saslauthd
@@ -179,70 +104,9 @@ describe 'sasl::application' do
                 EOS
               end
               it { should contain_package('cyrus-sasl-plain') }
-              it { should contain_sasl__application('test') }
             end
-          end
-        end
 
-        context 'on Ubuntu' do
-          let(:facts) do
-            {
-              :osfamily        => 'Debian',
-              :operatingsystem => 'Ubuntu',
-              :lsbdistid       => 'Ubuntu'
-            }
-          end
-
-          ['precise', 'trusty'].each do |codename|
-            context "#{codename}", :compile do
-              let(:facts) do
-                super().merge(
-                  {
-                    :lsbdistcodename => codename
-                  }
-                )
-              end
-
-              it do
-                should contain_file('/usr/lib/sasl2/test.conf').with_content(<<-EOS.gsub(/^ +/, ''))
-                  pwcheck_method: saslauthd
-                  mech_list: plain login
-                EOS
-              end
-              it { should contain_package('libsasl2-modules') }
-              it { should contain_sasl__application('test') }
-            end
-          end
-        end
-
-        context 'on Debian' do
-          let(:facts) do
-            {
-              :osfamily        => 'Debian',
-              :operatingsystem => 'Debian',
-              :lsbdistid       => 'Debian'
-            }
-          end
-
-          ['squeeze', 'wheezy'].each do |codename|
-            context "#{codename}", :compile do
-              let(:facts) do
-                super().merge(
-                  {
-                    :lsbdistcodename => codename
-                  }
-                )
-              end
-
-              it do
-                should contain_file('/usr/lib/sasl2/test.conf').with_content(<<-EOS.gsub(/^ +/, ''))
-                  pwcheck_method: saslauthd
-                  mech_list: plain login
-                EOS
-              end
-              it { should contain_package('libsasl2-modules') }
-              it { should contain_sasl__application('test') }
-            end
+            it { should contain_sasl__application('test') }
           end
         end
       end

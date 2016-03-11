@@ -17,6 +17,7 @@ end
 task :spec_prep => :librarian_spec_prep
 
 task :test => [
+  'metadata_lint',
   'syntax',
   'spec',
   'lint',
