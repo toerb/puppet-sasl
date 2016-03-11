@@ -1,6 +1,7 @@
 #
 class sasl::authd (
   $mechanism,
+  $threads                 = $::sasl::params::saslauthd_threads,
   $package_name            = $::sasl::params::saslauthd_package,
   $service_name            = $::sasl::params::saslauthd_service,
   $socket                  = $::sasl::params::saslauthd_socket,
@@ -51,6 +52,7 @@ class sasl::authd (
   }
 
   validate_re($mechanism, $::sasl::params::saslauthd_mechanisms)
+  validate_integer($threads, undef, 1)
   validate_string($package_name)
   validate_string($service_name)
   validate_absolute_path($socket)

@@ -3,6 +3,7 @@ class sasl::authd::config {
 
   $socket                  = $::sasl::authd::socket
   $mechanism               = $::sasl::authd::mechanism
+  $threads                 = $::sasl::authd::threads
   $ldap_conf_file          = $::sasl::authd::ldap_conf_file
   $ldap_auth_method        = $::sasl::authd::ldap_auth_method
   $ldap_bind_dn            = $::sasl::authd::ldap_bind_dn
@@ -51,7 +52,10 @@ class sasl::authd::config {
 
   case $::osfamily { # lint:ignore:case_without_default
     'RedHat': {
-      $flags = $mech_options
+      $flags = $threads ? {
+        $::sasl::params::saslauthd_threads => $mech_options,
+        default                            => strip("${mech_options} -n ${threads}") # lint:ignore:80chars
+      }
 
       file { '/etc/sysconfig/saslauthd':
         ensure  => file,
