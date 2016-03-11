@@ -2,8 +2,10 @@
 
 Tested with Travis CI
 
-[![Puppet Forge](http://img.shields.io/puppetforge/v/bodgit/sasl.svg)](https://forge.puppetlabs.com/bodgit/sasl)
 [![Build Status](https://travis-ci.org/bodgit/puppet-sasl.svg?branch=master)](https://travis-ci.org/bodgit/puppet-sasl)
+[![Coverage Status](https://coveralls.io/repos/bodgit/puppet-sasl/badge.svg?branch=master&service=github)](https://coveralls.io/github/bodgit/puppet-sasl?branch=master)
+[![Puppet Forge](http://img.shields.io/puppetforge/v/bodgit/sasl.svg)](https://forge.puppetlabs.com/bodgit/sasl)
+[![Dependency Status](https://gemnasium.com/bodgit/puppet-sasl.svg)](https://gemnasium.com/bodgit/puppet-sasl)
 
 #### Table of Contents
 
@@ -13,7 +15,7 @@ Tested with Travis CI
     * [What sasl affects](#what-sasl-affects)
     * [Beginning with sasl](#beginning-with-sasl)
 4. [Usage - Configuration options and additional functionality](#usage)
-    * [Classes and Definted Types](#classes-and-defined-types)
+    * [Classes and Defined Types](#classes-and-defined-types)
         * [Class: sasl](#class-sasl)
         * [Class: sasl::authd](#class-saslauthd)
         * [Defined Type: sasl::application](#defined-type-saslapplication)
