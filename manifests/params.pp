@@ -25,7 +25,7 @@ class sasl::params {
       }
       $saslauthd_package     = 'cyrus-sasl'
       $saslauthd_socket      = $::operatingsystemmajrelease ? {
-        6       => '/var/run/saslauthd',
+        '6'     => '/var/run/saslauthd',
         default => '/run/saslauthd',
       }
       $saslauthd_mechanisms  = $::operatingsystemmajrelease ? {
