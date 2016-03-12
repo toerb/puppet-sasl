@@ -59,7 +59,11 @@ include ::sasl
 
 ##### `application_directory`
 
+The directory where per-application configuration is written.
+
 ##### `package_name`
+
+The name of the package to install that provides the SASL libraries.
 
 #### Class: `sasl::authd`
 
@@ -67,15 +71,27 @@ include ::sasl
 
 ##### `mechanism`
 
+The authentication mechanism to use, examples are `pam`, `ldap`, or `rimap`.
+
 ##### `threads`
+
+The maximum number of threads for `saslauthd` to use.
 
 ##### `package_name`
 
+The name of the package to install that provides the `saslauthd` daemon.
+
 ##### `service_name`
+
+The name of the service managing `saslauthd`.
 
 ##### `socket`
 
+The location of the socket on filesystem.
+
 ##### `hasstatus`
+
+Whether the `saslauthd` service file supports querying the `status`.
 
 ##### `ldap_conf_file`
 
@@ -157,9 +173,17 @@ include ::sasl
 
 ##### `pwcheck_method`
 
+The password check method, either `auxprop` or `saslauthd`.
+
 ##### `mech_list`
 
+The mechanisms to support, for example `plain`, `login`, `digest-md5`,
+`cram-md5` etc.
+
 ##### `auxprop_plugin`
+
+If the `pwcheck_method` is `auxprop` the name of the plugin to use, either
+`ldapdb`, `sasldb` or `sql`.
 
 ##### `ldapdb_uri`
 
