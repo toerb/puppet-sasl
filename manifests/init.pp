@@ -6,6 +6,11 @@ class sasl (
   $mech_packages         = $::sasl::params::mech_packages,
 ) inherits ::sasl::params {
 
+  validate_absolute_path($application_directory)
+  validate_string($package_name)
+  validate_hash($auxprop_packages)
+  validate_hash($mech_packages)
+
   include ::sasl::install
   include ::sasl::config
 

@@ -65,6 +65,14 @@ The directory where per-application configuration is written.
 
 The name of the package to install that provides the SASL libraries.
 
+##### `auxprop_packages`
+
+Hash of Auxiliary Property plugins mapped to the package that provides them.
+
+##### `mech_packages`
+
+Hash of authentication mechanisms mapped to the package that provides them.
+
 #### Class: `sasl::authd`
 
 **Parameters within `sasl::authd`:**
