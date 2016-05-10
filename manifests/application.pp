@@ -102,14 +102,15 @@ define sasl::application (
   }
 
   if $pwcheck_method == 'auxprop' {
-    $auxprop_package = $::sasl::params::auxprop_packages[$auxprop_plugin]
+    $auxprop_package = $::sasl::auxprop_packages[$auxprop_plugin]
     ensure_packages([$auxprop_package])
     Package[$auxprop_package] -> File[$service_file]
   }
 
   # Build up an array of packages that need to be installed based on the
   # chosen authentication mechanisms
-  $packages = split(inline_template('<%= scope.lookupvar("::sasl::mech_packages").select { |k| @mech_list.include?(k) }.values.uniq.join(",") %>'), ',') # lint:ignore:80chars
+  $mech_packages = $::sasl::mech_packages
+  $packages = split(inline_template('<%= Hash[@mech_packages.select { |k,v| @mech_list.include?(k) }].values.uniq.join(",") %>'), ',') # lint:ignore:80chars
   ensure_packages($packages)
   Package[$packages] -> File[$service_file]
 
