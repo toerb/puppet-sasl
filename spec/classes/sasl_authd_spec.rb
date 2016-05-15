@@ -204,7 +204,7 @@ describe 'sasl::authd' do
                     DESC="SASL Authentication Daemon"
                     NAME="saslauthd"
                     MECHANISMS="ldap"
-                    MECH_OPTIONS="-O /tmp/saslauthd.conf"
+                    MECH_OPTIONS="/tmp/saslauthd.conf"
                     THREADS=#{threads}
                     OPTIONS="-c -m /var/run/saslauthd"
                   EOS

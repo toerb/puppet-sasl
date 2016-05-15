@@ -41,17 +41,23 @@ class sasl::authd::config {
   $ldap_use_sasl           = $::sasl::authd::ldap_use_sasl
   $ldap_version            = $::sasl::authd::ldap_version
 
-  $mech_options = $::sasl::authd::mechanism ? {
+  $_mech_options = $::sasl::authd::mechanism ? {
     'ldap'  => $ldap_conf_file ? {
       $::sasl::params::saslauthd_ldap_conf_file => '',
-      default                                   => "-O ${ldap_conf_file}",
+      default                                   => $ldap_conf_file,
     },
-    'rimap' => "-O ${::sasl::authd::imap_server}",
+    'rimap' => $::sasl::authd::imap_server,
     default => '',
   }
 
   case $::osfamily { # lint:ignore:case_without_default
     'RedHat': {
+      if size($_mech_options) > 0 {
+        $mech_options = "-O ${_mech_options}"
+      } else {
+        $mech_options = '' # lint:ignore:empty_string_assignment
+      }
+
       $flags = $threads ? {
         $::sasl::params::saslauthd_threads => $mech_options,
         default                            => strip("${mech_options} -n ${threads}") # lint:ignore:80chars
@@ -66,6 +72,8 @@ class sasl::authd::config {
       }
     }
     'Debian': {
+      $mech_options = $_mech_options
+
       file { '/etc/default/saslauthd':
         ensure  => file,
         owner   => 0,
