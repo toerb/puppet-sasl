@@ -68,6 +68,7 @@ class sasl::authd (
       }
       if $ldap_bind_dn {
         validate_string($ldap_bind_dn)
+        validate_ldap_dn($ldap_bind_dn)
       }
       if $ldap_bind_pw {
         validate_string($ldap_bind_pw)
@@ -83,21 +84,25 @@ class sasl::authd (
       }
       if $ldap_filter {
         validate_string($ldap_filter)
+        validate_ldap_filter($ldap_filter)
       }
       if $ldap_group_attr {
         validate_string($ldap_group_attr)
       }
       if $ldap_group_dn {
         validate_string($ldap_group_dn)
+        validate_ldap_dn($ldap_group_dn)
       }
       if $ldap_group_filter {
         validate_string($ldap_group_filter)
+        validate_ldap_filter($ldap_group_filter)
       }
       if $ldap_group_match_method {
         validate_re($ldap_group_match_method, '^(?:attr|filter)$')
       }
       if $ldap_group_search_base {
         validate_string($ldap_group_search_base)
+        validate_ldap_dn($ldap_group_search_base)
       }
       if $ldap_group_scope {
         validate_re($ldap_group_scope, '^(?:sub|one|base)$')
@@ -131,9 +136,11 @@ class sasl::authd (
       }
       if $ldap_search_base {
         validate_string($ldap_search_base)
+        validate_ldap_dn($ldap_search_base)
       }
       if $ldap_servers {
         validate_array($ldap_servers)
+        validate_ldap_uri($ldap_servers)
       }
       if $ldap_start_tls {
         validate_bool($ldap_start_tls)

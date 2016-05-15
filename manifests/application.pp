@@ -39,6 +39,7 @@ define sasl::application (
       'ldapdb': {
         if $ldapdb_uri {
           validate_array($ldapdb_uri)
+          validate_ldap_uri($ldapdb_uri)
         }
         if $ldapdb_id {
           validate_string($ldapdb_id)
