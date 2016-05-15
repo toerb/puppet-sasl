@@ -296,7 +296,7 @@ The module has been tested on:
 
 * RedHat/CentOS Enterprise Linux 6/7
 * Ubuntu 12.04/14.04
-* Debian 6/7
+* Debian 6/7/8
 
 It should also probably work on:
 
